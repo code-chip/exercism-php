@@ -1,0 +1,91 @@
+#!/bin/bash
+
+init() {
+    COMPOSE_EXECUTABLE="docker compose"
+    $COMPOSE_EXECUTABLE version &>/dev/null
+    
+    if [[ $? -ne 0 ]]; then
+        COMPOSE_EXECUTABLE="docker-compose"
+        $COMPOSE_EXECUTABLE --version &>/dev/null
+        if [[ $? -ne 0 ]]; then
+            echo "Neither Docker Compose (plugin) or Docker-Compose (standalone) found, exitting!"
+            exit 1
+        fi
+    fi
+
+    self=$(which $0)
+    self_path=$(dirname $(realpath $self))
+    project_path=$(dirname $self_path)
+    compose_file_custom="${project_path}/docker-compose.yml"
+    compose_file_dist="${project_path}/.docker/docker-compose.yml"
+    env_file="--env-file ${project_path}/.docker/.env"
+
+    if [ -f "${compose_file_custom}" ]; then
+        compose_file="-f $compose_file_dist -f $compose_file_custom "
+    else
+        compose_file="-f $compose_file_dist"
+    fi
+}
+
+start() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file up -d "$@"
+}
+
+up() {
+    start "$@"
+}
+
+stop() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file stop "$@"
+}
+
+status() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file ps
+}
+
+down() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file down "$@"
+}
+
+exec() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file exec "$@"
+}
+
+rebuild() {
+    build
+    down
+    start
+}
+
+reset() {
+    down --remove-orphans
+    set -e
+    build --pull --no-cache
+    up --renew-anon-volumes
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file run --entrypoint bash --remove-orphans --rm
+}
+
+clear() {
+	${COMPOSE_EXECUTABLE} $compose_file $env_file down -v "$@"
+    start
+}
+
+restart() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file restart "$@"
+}
+
+build() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file build "$@"
+}
+
+console() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file exec -it "$@" bash
+}
+
+logs() {
+    ${COMPOSE_EXECUTABLE} $compose_file $env_file logs "$@"
+}
+
+init
+
+"$@"
