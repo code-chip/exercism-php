@@ -1,0 +1,14 @@
+services:
+  php:
+    image: php:8.3
+    container_name: ${PROJECT_NAME}_php
+    volumes:
+      - ../:/var/www/html
+    user: "${MY_UID}:${GID}"  
+    ports:
+      - 80:80
+    working_dir: /var/www/html
+    command: php -S 0.0.0.0:80 -t .  
+
+volumes:
+  php:    
