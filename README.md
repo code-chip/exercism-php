@@ -18,7 +18,8 @@ PHP
 1- Download the shellscript run command `git clone git@github.com:code-chip/stack-php.git new_projec`  
 2- Access the fold with `cd new_projec`  
 3- Change the remote repository to the new one `git remote set-url origin git@github.com:your_user_github/new_project.git`.  
-4- Add the source repository to get updates `git remote set-url stack git@github.com:code-chip/stack-php.git`. Check the change by running the command `git remote --v`  
+4- Add the new repository to push updates `git remote set-url origin git@github.com:code-chip/repo_name.git`.  
+5- Maintain the stack repository to receive updates `git remote add origin git@github.com:code-chip/stack-php.git`. Verify the change by running the `git remote --v` command.  
 ```bash
 Before:
 origin git@github.com:code-chip/stack-php.git (fetch)
