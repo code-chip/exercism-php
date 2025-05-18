@@ -1,6 +1,6 @@
 services:
   php:
-    image: php:8.3
+    build: .
     container_name: ${PROJECT_NAME}_php
     volumes:
       - ../:/var/www/html

@@ -1,9 +1,7 @@
-# Stack PHP
+# Explore the PHP exercises on Exercism
 Stack docker for PHP projects
 
-What is PHP?
-A popular general-purpose scripting language that is especially suited to web development.
-Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
+Unlock more exercises as you progress. They’re great practice and fun to do!
 
 ## Services
 PHP 
@@ -14,26 +12,30 @@ PHP
 - **Docker Compose** 1.25+
 - **GIT** 2.25.1+
 
+## How Working Locally With Exercism
+Learn how to solve exercises on your local machine  
+Solving exercises on your local machine allows you to do all the coding in an environment you're familiar with.  
+access link for more information: https://exercism.org/docs/using/solving-exercises/working-locally  
+
 ## How to Use
-1- Download the shellscript run command `git clone git@github.com:code-chip/stack-php.git new_projec`  
-2- Access the fold with `cd new_projec`  
-3- Change the remote repository to the new one `git remote set-url origin git@github.com:your_user_github/new_project.git`.  
-4- Add the new repository to push updates `git remote set-url origin git@github.com:code-chip/repo_name.git`.  
-5- Maintain the stack repository to receive updates `git remote add origin git@github.com:code-chip/stack-php.git`. Verify the change by running the `git remote --v` command.  
+1- Download the shellscript run command `git clone git@github.com:code-chip/exercism-php.git`  
+2- Access the fold with `cd exercism-php`  
+3- Maintain the stack repository to receive updates `git remote add origin git@github.com:code-chip/stack-php.git`. Verify the change by running the `git remote --v` command.  
 ```bash
 Before:
-origin git@github.com:code-chip/stack-php.git (fetch)
-origin git@github.com:code-chip/stack-php.git (push)
+origin git@github.com:code-chip/exercism-php.git (fetch)
+origin git@github.com:code-chip/exercism-php.git (push)
 
 After:
-origin git@github.com:your_user_github/new_project.git (fetch)
-origin git@github.com:your_user_github/new_project.git (push)
+origin git@github.com:your_user_github/exercism-php.git (fetch)
+origin git@github.com:your_user_github/exercism-php.git (push)
 stack git@github.com:code-chip/stack-php.git (fetch)
 stack git@github.com:code-chip/stack-php.git (push)
 ```
 4- Fills the environment variable values int the .env file.  
 5- Run the command `bin/dev build` or `docker-compose build`.  
 6- Start services `bin/dev up` or `docker-compose up -d`.
+7- Installation PHPunit, enter in container with `bin/dev console` and run command `composer require --dev phpunit/phpunit`.   
 
 ## Available development commands
 * `bin/dev build` will force (re)building the docker-compose stack.
@@ -48,4 +50,7 @@ stack git@github.com:code-chip/stack-php.git (push)
 * `bin/dev exec --args` will start a bash console inside the `web(wordpress), db(mysql) or phpmyadmin` container.
 
 ## Access broswer
-PHP [http:localhost](http:localhost)  
+PHP [http:localhost](http:localhost)
+
+## How use test with PHPunit
+vendor/bin/phpunit fold_name/test_name.php
