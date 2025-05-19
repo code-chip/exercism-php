@@ -1,0 +1,22 @@
+{
+  "authors": [
+    "camilopayan"
+  ],
+  "contributors": [
+    "MichaelBunker"
+  ],
+  "files": {
+    "solution": [
+      "ResistorColor.php"
+    ],
+    "test": [
+      "ResistorColorTest.php"
+    ],
+    "example": [
+      ".meta/example.php"
+    ]
+  },
+  "blurb": "Convert a resistor band's color to its numeric representation.",
+  "source": "Maud de Vries, Erik Schierboom",
+  "source_url": "https://github.com/exercism/problem-specifications/issues/1458"
+}
