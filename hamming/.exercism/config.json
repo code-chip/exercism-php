@@ -1,0 +1,29 @@
+{
+  "authors": [],
+  "contributors": [
+    "arueckauer",
+    "dkinzer",
+    "Dog",
+    "kip-13",
+    "kunicmarko20",
+    "kytrinyx",
+    "lafent",
+    "marvinrabe",
+    "petemcfarlane",
+    "rossbearman"
+  ],
+  "files": {
+    "solution": [
+      "Hamming.php"
+    ],
+    "test": [
+      "HammingTest.php"
+    ],
+    "example": [
+      ".meta/example.php"
+    ]
+  },
+  "blurb": "Calculate the Hamming distance between two DNA strands.",
+  "source": "The Calculating Point Mutations problem at Rosalind",
+  "source_url": "https://rosalind.info/problems/hamm/"
+}
