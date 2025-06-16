@@ -1,9 +1,28 @@
 # Stack PHP
 Stack docker for PHP projects
 
-What is PHP?
-A popular general-purpose scripting language that is especially suited to web development.
-Fast, flexible and pragmatic, PHP powers everything from your blog to the most popular websites in the world.
+<div align="center">
+    <a href="https://www.php.net">
+        <img
+            alt="PHP"
+            src="https://www.php.net/images/logos/new-php-logo.svg"
+            width="150">
+    </a>
+</div>
+
+# The PHP Interpreter
+
+PHP is a popular general-purpose scripting language that is especially suited to
+web development. Fast, flexible and pragmatic, PHP powers everything from your
+blog to the most popular websites in the world. PHP is distributed under the
+[PHP License v3.01](LICENSE).
+
+[![Push](https://github.com/php/php-src/actions/workflows/push.yml/badge.svg)](https://github.com/php/php-src/actions/workflows/push.yml)
+[![Fuzzing Status](https://oss-fuzz-build-logs.storage.googleapis.com/badges/php.svg)](https://bugs.chromium.org/p/oss-fuzz/issues/list?sort=-opened&can=1&q=proj:php)
+
+## Documentation
+
+The PHP manual is available at [php.net/docs](https://www.php.net/docs).
 
 ## Services
 PHP 
@@ -31,9 +50,20 @@ origin git@github.com:your_user_github/new_project.git (push)
 stack git@github.com:code-chip/stack-php.git (fetch)
 stack git@github.com:code-chip/stack-php.git (push)
 ```
-4- Fills the environment variable values int the .env file.  
-5- Run the command `bin/dev build` or `docker-compose build`.  
-6- Start services `bin/dev up` or `docker-compose up -d`.
+4- Fill in the values ​​of the environment variables in the .docker/.env file. It is important to fill in the correct values ​​of MY_UID and GID, to confirm your user id in Linux run the id command, the terminal should display something close to this:  
+```bash
+uid=1000(will) gid=1000(will) grupos=1000(will),4(adm),24(cdrom),27(sudo),30(dip),33(www-data),46(plugdev),100(users),105(lpadmin),125(sambashare),127(docker)
+``` 
+5-To confirm your Docker host IP on Linux, run the command.
+```bash
+ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'
+``` 
+The terminal should display something similar to this:  
+```bash
+172.17.0.1
+``` 
+6- Run the command `bin/dev build` or `docker-compose build`.  
+7- Start services `bin/dev up` or `docker-compose up -d`.
 
 ## Available development commands
 * `bin/dev build` will force (re)building the docker-compose stack.
@@ -41,11 +71,11 @@ stack git@github.com:code-chip/stack-php.git (push)
 * `bin/dev up` or `bin/dev start` will start the docker-compose stack.
 * `bin/dev status` will print the current status of the docker-compose stack.
 * `bin/dev restart` will restart the docker-compose stack.
-* `bin/dev logs <service>` will print the logs for the given container.
-* `bin/dev console <service>` will start a bash console inside the `web(wordpress), db(mysql) or phpmyadmin` container.
-* `bin/dev stop <service>` will stop all running docker-compose stack containers.
-* `bin/dev down <service>` will stop and remove all docker-compose stack containers.
-* `bin/dev exec --args` will start a bash console inside the `web(wordpress), db(mysql) or phpmyadmin` container.
+* `bin/dev logs php` will print the logs for the given container.
+* `bin/dev console php` will start a bash console inside the PHP container.
+* `bin/dev stop php` will stop all running docker-compose stack containers.
+* `bin/dev down php` will stop and remove all docker-compose stack containers.
+* `bin/dev exec --args` will start a bash console inside the PHP container.
 
 ## Access broswer
 PHP [http:localhost](http:localhost)  
