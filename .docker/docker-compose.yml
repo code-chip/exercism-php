@@ -1,12 +1,18 @@
 services:
   php:
-    image: php:8.3
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DOCKER_HOST_IP: ${DOCKER_HOST_IP}
+        UID: ${MY_UID}
+        GID: ${GID}
     container_name: ${PROJECT_NAME}_php
     volumes:
       - ../:/var/www/html
     user: "${MY_UID}:${GID}"  
     ports:
-      - 80:80
+      - ${LOCALHOST_PORT}
     working_dir: /var/www/html
     command: php -S 0.0.0.0:80 -t .  
 
