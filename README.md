@@ -1,7 +1,14 @@
 # Explore the PHP exercises on Exercism
-Stack docker for PHP projects
 
 Unlock more exercises as you progress. They’re great practice and fun to do!
+
+<div align="center">
+    <img alt="Top" src="doc/top.png">
+    <img alt="Overview" src="doc/overview.png" style="margin-top: 19px; margin-bottom: 19px;">
+</div>
+
+## The PHP Interpreter
+Stack docker for PHP projects  
 
 <div align="center">
     <a href="https://www.php.net">
@@ -11,8 +18,6 @@ Unlock more exercises as you progress. They’re great practice and fun to do!
             width="150">
     </a>
 </div>
-
-## The PHP Interpreter
 
 PHP is a popular general-purpose scripting language that is especially suited to
 web development. Fast, flexible and pragmatic, PHP powers everything from your
