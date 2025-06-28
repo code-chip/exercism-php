@@ -24,21 +24,51 @@
 
 declare(strict_types=1);
 
+use PHPUnit\Event\Runtime\Runtime;
+
 class Robot
 {
     private string $robotName = '';
+    private static array $availableNames = [];
+
+    public function __construct()
+    {
+        if (empty(self::$availableNames)) {
+            self::generatedAllNames();
+        }
+    }
 
     public function getName(): string
     {
-        $str = range('A', 'Z');
-        $number = random_int(100, 999);
-        $this->robotName = $str[random_int(0, 25)] . $str[random_int(0, 25)] . $number;
+        if (!empty($this->robotName)) {
+            return $this->robotName;
+        }
 
+        if (empty(self::$availableNames)) {
+            throw new RuntimeException('Todos os nomes foram utilizados');
+        }
+
+        $this->robotName = array_pop(self::$availableNames);
         return $this->robotName;
     }
 
     public function reset(): void
     {
         $this->robotName = '';
+    }
+
+    public static function generatedAllNames(): void
+    {
+        $letters = range('A', 'Z');
+        
+        foreach ($letters as $l1) {
+            foreach ($letters as $l2) {
+                for ($i = 100; $i <= 999; $i++) {
+                    self::$availableNames[] = $l1 . $l2 . $i;
+                }
+            }
+        }
+
+        shuffle(self::$availableNames);
     }
 }
