@@ -42,18 +42,16 @@ class Tournament
 
         $table = $this->gameTable;
         $this->generateLine($score);
-
-        $test = $this->generateTable($table);
+        $this->orderGamesByPoints();
         
         return $this->generateTable($table);
     }
 
     public function generateLine($score): void
     {
-        $data = explode(";", $score);
+        $data = preg_split("/[;\r\n]+/", $score, -1, PREG_SPLIT_NO_EMPTY);
 
-        for ($i = 0; $i < count($data) && $i + 3 >= count($data); $i += 3)
-        {
+        for ($i = 0; $i < count($data) && $i + 3 <= count($data); $i += 3) {
             if ($data[$i + 2] === 'win') {
                 $this->playGames[$data[$i]]['player'] = $data[$i];
                 $this->playGames[$data[$i]]['matchesPlayed'] += 1;
@@ -91,7 +89,7 @@ class Tournament
                 $this->playGames[$data[$i]]['matchesPlayed'] += 1;
                 $this->playGames[$data[$i]]['matchesWon'] += 0;
                 $this->playGames[$data[$i]]['matchesDrawn'] += 0;
-                $this->playGames[$data[$i]]['matchesLost'] += 0;
+                $this->playGames[$data[$i]]['matchesLost'] += 1;
                 $this->playGames[$data[$i]]['points'] += 0;
 
                 $this->playGames[$data[$i+1]]['player'] = $data[$i+1];
@@ -101,18 +99,45 @@ class Tournament
                 $this->playGames[$data[$i+1]]['matchesLost'] += 0;
                 $this->playGames[$data[$i+1]]['points'] += 3;
             }
-        } 
+        }
+        sort($this->playGames);        
     }
 
-    public function generateTable($table): string
+    public function orderGamesByPoints(): void
     {
-        foreach ($this->playGames as $team) {
-            $table .= "\n" . $team['player'] . ' | ' . $team['matchesPlayed'] . ' | ' 
-                . $team['matchesWon'] . ' | ' . $team['matchesDrawn'] . ' | '
-                . $team['matchesLost'] . ' | ' . $team['matchesLost'] . ' | '
-                . $team['points'];
+        $countPlayer = count($this->playGames);
+        $arrayWithIndex = array_values($this->playGames);
+
+        for ($i = 0; $i < $countPlayer; $i++) {
+            for ($x = 0; $x < $countPlayer + $i; $x++) {
+                if ($arrayWithIndex[$x]['points'] < $arrayWithIndex[$x + 1]['points']) {
+                    $temp = $arrayWithIndex[$x];
+                    $arrayWithIndex[$x] = $arrayWithIndex[$x + 1];
+                    $arrayWithIndex[$x + 1] = $temp;
+                }
+            }
         }
 
-        return $table;
+        $this->playGames = $arrayWithIndex;
+    }
+
+    public function generateTable(): string
+    {
+        $header = sprintf("%-31s| MP |  W |  D |  L |  P", 'Team');
+        $rows = [$header];
+
+        foreach ($this->playGames as $teamName => $stats) {
+            $rows[] = sprintf(
+                "%-31s|  %d |  %d |  %d |  %d |  %d",
+                $stats['player'],
+                $stats['matchesPlayed'],
+                $stats['matchesWon'],
+                $stats['matchesDrawn'],
+                $stats['matchesLost'],
+                $stats['points']
+            );
+        }
+
+        return implode("\n", $rows);
     }
 }
